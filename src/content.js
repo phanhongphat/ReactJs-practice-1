@@ -1,31 +1,30 @@
 import React, { Component } from 'react';
 
 
-class Demo extends Component {
-    state ={
-        stateNe: 0,
+class Toggle extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {isToggleOn: true};
+
+        // This binding is necessary to make `this` work in the callback
+        //this.handleClick = this.handleClick.bind(this,id);
     }
 
-
-    EventClick = () => {
-        this.setState({
-            stateNe: this.state.stateNe +111 // 112
-        })
-
-
-        this.props.ham(this.state.stateNe)
-
+    handleClick(id,e) {
+        e.preventDefault();
+        this.setState(prevState => ({
+            isToggleOn: !prevState.isToggleOn
+        }));
+        console.log(id)
     }
-
-
 
     render() {
+        let id = 'name'
         return (
-            <div onClick={() => this.EventClick()}>
-                Click vo day ne
-            </div>
+            <button onClick={this.handleClick.bind(this,id)}>
+                {this.state.isToggleOn ? 'ON' : 'OFF'}
+            </button>
         );
     }
 }
-
-export default Demo;
+export default Toggle;
